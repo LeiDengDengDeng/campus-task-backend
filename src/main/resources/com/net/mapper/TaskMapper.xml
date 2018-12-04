@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.net.mapper.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.net.vo.TaskVO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="payment" jdbcType="INTEGER" property="payment" />
+    <result column="start" jdbcType="TIMESTAMP" property="start" />
+    <result column="end" jdbcType="TIMESTAMP" property="end" />
+    <result column="publisher" jdbcType="INTEGER" property="publisher" />
+    <result column="order_taker" jdbcType="INTEGER" property="orderTaker" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="comment_star" jdbcType="INTEGER" property="commentStar" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, content, picture_url, type, payment, start, end, publisher, order_taker, 
+    state, comment_star, comment_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.net.vo.TaskVO">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="pictureUrl != null">
+        picture_url,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="payment != null">
+        payment,
+      </if>
+      <if test="start != null">
+        start,
+      </if>
+      <if test="end != null">
+        end,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="orderTaker != null">
+        order_taker,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="commentStar != null">
+        comment_star,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="start != null">
+        #{start,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end != null">
+        #{end,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=INTEGER},
+      </if>
+      <if test="orderTaker != null">
+        #{orderTaker,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="commentStar != null">
+        #{commentStar,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.net.vo.TaskVO">
+    update task
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null">
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null">
+        payment = #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="start != null">
+        start = #{start,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end != null">
+        end = #{end,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publisher != null">
+        publisher = #{publisher,jdbcType=INTEGER},
+      </if>
+      <if test="orderTaker != null">
+        order_taker = #{orderTaker,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="commentStar != null">
+        comment_star = #{commentStar,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

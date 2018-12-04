@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.net.mapper.ComplainMapper">
+  <resultMap id="BaseResultMap" type="com.net.vo.ComplainVO">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="publisher" jdbcType="INTEGER" property="publisher" />
+    <result column="order_taker" jdbcType="INTEGER" property="orderTaker" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+
+  <insert id="insertSelective" parameterType="com.net.vo.ComplainVO">
+    insert into complain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="orderTaker != null">
+        order_taker,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=INTEGER},
+      </if>
+      <if test="orderTaker != null">
+        #{orderTaker,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
