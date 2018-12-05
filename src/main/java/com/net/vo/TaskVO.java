@@ -23,9 +23,9 @@ public class TaskVO implements Serializable {
 
     private Date end;
 
-    private Integer publisher;
+    private String publisher;
 
-    private Integer orderTaker;
+    private String orderTaker;
 
     private TaskState state;
 
@@ -91,19 +91,19 @@ public class TaskVO implements Serializable {
         this.end = end;
     }
 
-    public Integer getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(Integer publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
-    public Integer getOrderTaker() {
+    public String getOrderTaker() {
         return orderTaker;
     }
 
-    public void setOrderTaker(Integer orderTaker) {
+    public void setOrderTaker(String orderTaker) {
         this.orderTaker = orderTaker;
     }
 

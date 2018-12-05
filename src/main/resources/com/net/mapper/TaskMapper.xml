@@ -10,8 +10,8 @@
     <result column="payment" jdbcType="INTEGER" property="payment" />
     <result column="start" jdbcType="TIMESTAMP" property="start" />
     <result column="end" jdbcType="TIMESTAMP" property="end" />
-    <result column="publisher" jdbcType="INTEGER" property="publisher" />
-    <result column="order_taker" jdbcType="INTEGER" property="orderTaker" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="order_taker" jdbcType="VARCHAR" property="orderTaker" />
     <result column="state" jdbcType="VARCHAR" property="state" />
     <result column="comment_star" jdbcType="INTEGER" property="commentStar" />
     <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
@@ -90,10 +90,10 @@
         #{end,jdbcType=TIMESTAMP},
       </if>
       <if test="publisher != null">
-        #{publisher,jdbcType=INTEGER},
+        #{publisher},
       </if>
       <if test="orderTaker != null">
-        #{orderTaker,jdbcType=INTEGER},
+        #{orderTaker},
       </if>
       <if test="state != null">
         #{state,jdbcType=VARCHAR},
@@ -131,10 +131,10 @@
         end = #{end,jdbcType=TIMESTAMP},
       </if>
       <if test="publisher != null">
-        publisher = #{publisher,jdbcType=INTEGER},
+        publisher = #{publisher},
       </if>
       <if test="orderTaker != null">
-        order_taker = #{orderTaker,jdbcType=INTEGER},
+        order_taker = #{orderTaker},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=VARCHAR},
@@ -148,5 +148,30 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByPublisher" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM task WHERE publisher=#{publisherId}
+  </select>
+
+  <select id="selectByTaker" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM task WHERE order_taker=#{taker}
+  </select>
+
+  <select id="select" parameterType="com.net.vo.TaskQueryVO" resultMap="BaseResultMap">
+    SELECT * FROM task WHERE
+    <trim prefix="" suffix="" suffixOverrides=" and ">
+      state="TO_TAKE_ORDER" and
+      <if test="type!=null">
+        `type`=#{type} and
+      </if>
+      <if test="paymentMin!=null">
+        payment &gt;= #{paymentMin} and
+      </if>
+      <if test="paymentMax!=null">
+        payment &lt; #{paymentMax}
+      </if>
+    </trim>
+    
+  </select>
 
 </mapper>

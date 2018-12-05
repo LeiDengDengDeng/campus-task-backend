@@ -13,6 +13,10 @@ public enum TaskState {
      */
     TO_TAKE_ORDER,
     /**
+     * 已关闭
+     */
+    CLOSED,
+    /**
      * 已接单
      */
     ORDER_TAKED,

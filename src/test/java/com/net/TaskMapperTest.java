@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.net.enumeration.TaskState;
 import com.net.enumeration.TaskType;
 import com.net.mapper.TaskMapper;
+import com.net.vo.TaskQueryVO;
 import com.net.vo.TaskVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,17 +27,15 @@ public class TaskMapperTest {
     @Test
     public void insert(){
         TaskVO taskVO=new TaskVO();
-        taskVO.setCommentContent("ccccccccccccccccc");
-        taskVO.setCommentStar(4);
         taskVO.setContent("hhhhhhhhhhhhhhh");
         taskVO.setEnd(new Date());
-        taskVO.setOrderTaker(1);
-        taskVO.setPayment(1200);
+        taskVO.setOrderTaker("222");
+        taskVO.setPayment(60);
         taskVO.setPictureUrl("http://llll");
-        taskVO.setPublisher(2);
+        taskVO.setPublisher("11");
         taskVO.setStart(new Date());
         taskVO.setTitle("xxxxxxx");
-        taskVO.setState(TaskState.FINISHED_CONFIRM);
+        taskVO.setState(TaskState.TO_TAKE_ORDER);
         taskVO.setType(TaskType.OTHER);
         mapper.insertSelective(taskVO);
     }
@@ -54,6 +53,20 @@ public class TaskMapperTest {
         taskVO.setPictureUrl("hhhhhhhh");
         taskVO.setCommentStar(2);
         mapper.updateByPrimaryKeySelective(taskVO);
+    }
+
+    @Test
+    public void select(){
+        TaskQueryVO queryVO=new TaskQueryVO();
+//        queryVO.setPaymentMin(100);
+//        queryVO.setType(TaskType.OTHER);
+        System.out.println(JSONObject.toJSONString(mapper.select(queryVO)));
+    }
+
+    @Test
+    public void selectByUser(){
+        System.out.println(JSONObject.toJSONString(mapper.selectByPublisher(2)));
+        System.out.println(JSONObject.toJSONString(mapper.selectByTaker(1)));
     }
 
 }
