@@ -15,9 +15,9 @@ public interface TaskMapper {
 
     int updateByPrimaryKeySelective(TaskVO record);
 
-    List<TaskVO> selectByPublisher(Integer publisherId);
+    List<TaskVO> selectByPublisher(String publisherId);
 
-    List<TaskVO> selectByTaker(Integer taker);
+    List<TaskVO> selectByTaker(String taker);
 
     List<TaskVO> select(TaskQueryVO queryVO);
 }

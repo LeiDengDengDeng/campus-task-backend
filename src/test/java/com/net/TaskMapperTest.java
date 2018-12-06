@@ -65,8 +65,8 @@ public class TaskMapperTest {
 
     @Test
     public void selectByUser(){
-        System.out.println(JSONObject.toJSONString(mapper.selectByPublisher(2)));
-        System.out.println(JSONObject.toJSONString(mapper.selectByTaker(1)));
+        System.out.println(JSONObject.toJSONString(mapper.selectByPublisher("1")));
+        System.out.println(JSONObject.toJSONString(mapper.selectByTaker("2")));
     }
 
 }

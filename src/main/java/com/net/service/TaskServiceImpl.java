@@ -101,16 +101,16 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public ResponseVO getTaskByPublisher(String publisherId) {
-        return null;
+        return ResponseVO.buildSuccess(taskMapper.selectByPublisher(publisherId));
     }
 
     @Override
     public ResponseVO getTaskByTaker(String takerId) {
-        return null;
+        return ResponseVO.buildSuccess(taskMapper.selectByTaker(takerId));
     }
 
     @Override
     public ResponseVO getAllTask(TaskQueryVO taskQueryVO) {
-        return null;
+        return ResponseVO.buildSuccess(taskMapper.select(taskQueryVO));
     }
 }

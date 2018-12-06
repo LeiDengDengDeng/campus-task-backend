@@ -149,11 +149,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByPublisher" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPublisher" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT * FROM task WHERE publisher=#{publisherId}
   </select>
 
-  <select id="selectByTaker" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByTaker" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT * FROM task WHERE order_taker=#{taker}
   </select>
 
