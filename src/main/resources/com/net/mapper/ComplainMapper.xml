@@ -9,6 +9,10 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
 
+  <select id="selectAllComplain" parameterMap="BaseResultMap">
+    SELECT * FROM complain
+  </select>
+  
   <insert id="insertSelective" parameterType="com.net.vo.ComplainVO">
     insert into complain
     <trim prefix="(" suffix=")" suffixOverrides=",">
