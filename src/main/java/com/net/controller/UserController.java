@@ -4,10 +4,7 @@ import com.net.service.UserService;
 import com.net.vo.ResponseVO;
 import com.net.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author fjj
@@ -19,9 +16,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="user/add",method = RequestMethod.POST)
+    @RequestMapping(value = "user/add",method = RequestMethod.POST)
     public ResponseVO addUser(@RequestBody UserVO userVO){
         return userService.addUser(userVO);
+    }
+
+    @RequestMapping(value = "/user/update",method = RequestMethod.POST)
+    public ResponseVO updateUser(@RequestBody UserVO userVO){return userService.updateUser(userVO);}
+
+    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+    public ResponseVO getUser(@PathVariable int id){
+        return userService.getUser(id);
     }
 
 }

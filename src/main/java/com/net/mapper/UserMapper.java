@@ -1,5 +1,6 @@
 package com.net.mapper;
 
+import com.net.vo.UserInfoVO;
 import com.net.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     int insertUser(UserVO user);
+
+    int updateUserById(UserVO userVO);
+
+    UserInfoVO selectUserInfoById(int id);
 }

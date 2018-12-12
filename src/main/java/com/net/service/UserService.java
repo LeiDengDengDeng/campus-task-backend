@@ -15,4 +15,18 @@ public interface UserService {
      * @return
      */
     ResponseVO addUser(UserVO userVO);
+
+    /**
+     * 更新用户信息
+     * @param userVO
+     * @return
+     */
+    ResponseVO updateUser(UserVO userVO);
+
+    /**
+     * 根据Id查询用户信息
+     * @param id
+     * @return
+     */
+    ResponseVO getUser(int id);
 }

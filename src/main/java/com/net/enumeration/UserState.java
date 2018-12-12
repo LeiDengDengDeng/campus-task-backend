@@ -16,5 +16,9 @@ public enum UserState {
     /**
      * 已审核
      */
-    CHECKED
+    CHECKED,
+    /**
+     * 封号
+     */
+    CLOSED
 }

@@ -6,4 +6,46 @@
         insert into user(username,name,gender,avatar,pictureUrl,joinDate,state,identity)
         values(#{username},#{name},#{gender},#{avatar},#{pictureUrl},#{joinDate},#{state},#{identity})
      </insert>
+
+    <update id="updateUserById" parameterType="com.net.vo.UserVO">
+        update user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="pictureUrl != null">
+                pictureUrl = #{pictureUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="joinDate != null">
+                joinDate = #{joinDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="identity != null">
+                identity = #{identity},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <select id="selectUserInfoById" resultType="com.net.vo.UserInfoVO">
+        select u.* ,p.publish_times,t.take_times,cs.comment_star,c.coins
+        from user u,
+          (select count(*) as publish_times from task t where t.publisher = #{id}) as p,
+          (select count(*) as take_times from task t where t.order_taker = #{id}) as t,
+          (select avg(comment_star) as comment_star from task t where t.order_taker = #{id}) as cs,
+          (select sum(count) as coins from coin_record c where c.user_id = #{id}) as c
+        where u.id = #{id}
+    </select>
+
 </mapper>

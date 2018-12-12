@@ -3,14 +3,13 @@ package com.net.vo;
 import com.net.enumeration.UserIdentity;
 import com.net.enumeration.UserState;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author fjj
- * @date 2018/12/11 下午7:56
+ * @date 2018/12/12 下午7:47
  */
-public class UserVO implements Serializable {
+public class UserInfoVO {
     private Integer id;
     // 用户名
     private String username;
@@ -30,6 +29,15 @@ public class UserVO implements Serializable {
     private UserState state;
     // 用户身份
     private UserIdentity identity;
+
+    // 平均评分
+    private double comment_star;
+    // 发单数
+    private int publish_times;
+    // 接单数
+    private int take_times;
+    // 积分
+    private int coins;
 
     public Integer getId() {
         return id;
@@ -101,6 +109,38 @@ public class UserVO implements Serializable {
 
     public void setIdentity(UserIdentity identity) {
         this.identity = identity;
+    }
+
+    public double getComment_star() {
+        return comment_star;
+    }
+
+    public void setComment_star(double comment_star) {
+        this.comment_star = comment_star;
+    }
+
+    public int getPublish_times() {
+        return publish_times;
+    }
+
+    public void setPublish_times(int publish_times) {
+        this.publish_times = publish_times;
+    }
+
+    public int getTake_times() {
+        return take_times;
+    }
+
+    public void setTake_times(int take_times) {
+        this.take_times = take_times;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 
     public String getPhone() {
