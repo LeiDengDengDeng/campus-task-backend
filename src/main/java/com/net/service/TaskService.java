@@ -43,6 +43,7 @@ public interface TaskService {
 
     /**
      * 发布人确认完成任务
+     * 进行积分转账
      * @param taskId
      * @return
      */
@@ -60,14 +61,14 @@ public interface TaskService {
      * @param publisherId
      * @return
      */
-    public ResponseVO getTaskByPublisher(String publisherId);
+    public ResponseVO getTaskByPublisher(Integer publisherId);
 
     /**
      * 根据接单人查询任务
      * @param takerId
      * @return
      */
-    public ResponseVO getTaskByTaker(String takerId);
+    public ResponseVO getTaskByTaker(Integer takerId);
 
     /**
      * 查询待接任务

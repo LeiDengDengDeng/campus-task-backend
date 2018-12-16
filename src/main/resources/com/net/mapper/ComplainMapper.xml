@@ -9,7 +9,7 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
 
-  <select id="selectAllComplain" parameterMap="BaseResultMap">
+  <select id="selectAllComplain" resultMap="BaseResultMap">
     SELECT * FROM complain
   </select>
   

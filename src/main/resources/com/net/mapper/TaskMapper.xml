@@ -10,8 +10,8 @@
     <result column="payment" jdbcType="INTEGER" property="payment" />
     <result column="start" jdbcType="TIMESTAMP" property="start" />
     <result column="end" jdbcType="TIMESTAMP" property="end" />
-    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
-    <result column="order_taker" jdbcType="VARCHAR" property="orderTaker" />
+    <result column="publisher" jdbcType="INTEGER" property="publisher" />
+    <result column="order_taker" jdbcType="INTEGER" property="orderTaker" />
     <result column="state" jdbcType="VARCHAR" property="state" />
     <result column="comment_star" jdbcType="INTEGER" property="commentStar" />
     <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
@@ -149,11 +149,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByPublisher" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPublisher" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT * FROM task WHERE publisher=#{publisherId}
   </select>
 
-  <select id="selectByTaker" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByTaker" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT * FROM task WHERE order_taker=#{taker}
   </select>
 

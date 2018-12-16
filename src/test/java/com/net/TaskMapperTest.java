@@ -28,11 +28,10 @@ public class TaskMapperTest {
     public void insert(){
         TaskVO taskVO=new TaskVO();
         taskVO.setContent("hhhhhhhhhhhhhhh");
-        taskVO.setEnd(new Date());
-        taskVO.setOrderTaker("222");
+
+        taskVO.setOrderTaker(2);
         taskVO.setPayment(60);
-        taskVO.setPictureUrl("http://llll");
-        taskVO.setPublisher("11");
+        taskVO.setPublisher(1);
         taskVO.setStart(new Date());
         taskVO.setTitle("xxxxxxx");
         taskVO.setState(TaskState.TO_TAKE_ORDER);
@@ -65,8 +64,8 @@ public class TaskMapperTest {
 
     @Test
     public void selectByUser(){
-        System.out.println(JSONObject.toJSONString(mapper.selectByPublisher("1")));
-        System.out.println(JSONObject.toJSONString(mapper.selectByTaker("2")));
+        System.out.println(JSONObject.toJSONString(mapper.selectByPublisher(2)));
+        System.out.println(JSONObject.toJSONString(mapper.selectByTaker(1)));
     }
 
 }

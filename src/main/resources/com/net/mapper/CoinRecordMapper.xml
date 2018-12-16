@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.net.mapper.CoinRecordMapper">
+    <resultMap id="BaseResultMap" type="com.net.vo.CoinRecordVO">
+        <result column="task_id"  property="taskId" />
+        <result column="task_title"  property="taskTitle" />
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="selectCoin" parameterType="int" resultType="int">
+        SELECT sum(count) FROM coin_record where user_id=#{userId}
+    </select>
+
+    <select id="selectCoinRecords" parameterType="int" resultMap="BaseResultMap">
+      SELECT user_id,`count`,reason,task_id,task_title FROM coin_record
+      WHERE user_id=#{userId}
+    </select>
+
+    <insert id="insertCoinRecord" parameterType="com.net.vo.CoinRecordVO">
+        insert into coin_record(user_id,`count`,reason,task_id,task_title)
+        VALUES (#{userId},#{count},#{reason},#{taskId},#{taskTitle})
+    </insert>
+
+
+</mapper>

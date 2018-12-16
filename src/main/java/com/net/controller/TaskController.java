@@ -85,7 +85,7 @@ public class TaskController {
      * @return
      */
     @RequestMapping(value = "/task/publisher/{publisherId}",method = RequestMethod.GET)
-    public ResponseVO getTaskByPublisher(@PathVariable String publisherId){
+    public ResponseVO getTaskByPublisher(@PathVariable Integer publisherId){
         return taskService.getTaskByPublisher(publisherId);
     }
 
@@ -95,7 +95,7 @@ public class TaskController {
      * @return
      */
     @RequestMapping(value = "/task/taker/{takerId}",method = RequestMethod.GET)
-    public ResponseVO getTaskByTaker(@PathVariable String takerId){
+    public ResponseVO getTaskByTaker(@PathVariable Integer takerId){
         return taskService.getTaskByTaker(takerId);
     }
 
