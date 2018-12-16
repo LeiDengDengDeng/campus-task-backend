@@ -1,11 +1,10 @@
 package com.net.service;
 
+import com.net.enumeration.CoinChangeReason;
 import com.net.enumeration.TaskState;
+import com.net.mapper.CoinRecordMapper;
 import com.net.mapper.TaskMapper;
-import com.net.vo.CommentVO;
-import com.net.vo.ResponseVO;
-import com.net.vo.TaskQueryVO;
-import com.net.vo.TaskVO;
+import com.net.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,9 @@ public class TaskServiceImpl implements TaskService{
 
     @Autowired
     private TaskMapper taskMapper;
+
+    @Autowired
+    private CoinRecordMapper coinRecordMapper;
 
     @Override
     public ResponseVO addTask(TaskVO taskVO) {
@@ -67,7 +69,26 @@ public class TaskServiceImpl implements TaskService{
         if(taskInDb.getState()!=TaskState.FINISHED)
             return ResponseVO.buildFailure("任务未完成");
         updateState(taskId,TaskState.FINISHED_CONFIRM);
+        addCoinRecord(taskInDb);
         return ResponseVO.buildSuccess();
+    }
+
+    private void addCoinRecord(TaskVO taskInDb) {
+        CoinRecordVO payRecord=new CoinRecordVO();
+        payRecord.setReason(CoinChangeReason.PAY_ORDER);
+        payRecord.setCount(taskInDb.getPayment());
+        payRecord.setUserId(taskInDb.getPublisher());
+        payRecord.setTaskId(taskInDb.getId());
+        payRecord.setTaskTitle(taskInDb.getTitle());
+        coinRecordMapper.insertCoinRecord(payRecord);
+
+        CoinRecordVO rewardRecord=new CoinRecordVO();
+        rewardRecord.setTaskTitle(taskInDb.getTitle());
+        rewardRecord.setTaskId(taskInDb.getId());
+        rewardRecord.setUserId(taskInDb.getOrderTaker());
+        rewardRecord.setCount(taskInDb.getPayment());
+        rewardRecord.setReason(CoinChangeReason.FINISH_ORDER);
+        coinRecordMapper.insertCoinRecord(rewardRecord);
     }
 
     /**
