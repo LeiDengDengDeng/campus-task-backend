@@ -4,10 +4,7 @@ package com.net.enumeration;
  * Created by cong on 2018-12-04.
  */
 public enum TaskState {
-    /**
-     * 接单未开始
-     */
-    UNSTART,
+
     /**
      * 等待接单
      */

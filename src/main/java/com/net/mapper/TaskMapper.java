@@ -1,6 +1,6 @@
 package com.net.mapper;
 
-import com.net.vo.TaskQueryVO;
+import com.net.enumeration.TaskType;
 import com.net.vo.TaskVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,5 +19,10 @@ public interface TaskMapper {
 
     List<TaskVO> selectByTaker(Integer taker);
 
-    List<TaskVO> select(TaskQueryVO queryVO);
+    List<TaskVO> selectByType(TaskType type);
+
+    List<TaskVO> selectByTime();
+
+    List<TaskVO> selectByPayment();
+
 }

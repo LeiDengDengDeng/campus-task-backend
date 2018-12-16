@@ -5,6 +5,17 @@ package com.net.enumeration;
  */
 public enum TaskType {
 
-    OTHER
+    /**
+     * 其他
+     */
+    OTHER,
+    /**
+     * 租借
+     */
+    RENT,
+    /**
+     * 取物
+     */
+    DELIVER
 
 }

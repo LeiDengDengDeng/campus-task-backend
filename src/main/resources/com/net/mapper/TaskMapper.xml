@@ -157,21 +157,23 @@
     SELECT * FROM task WHERE order_taker=#{taker}
   </select>
 
-  <select id="select" parameterType="com.net.vo.TaskQueryVO" resultMap="BaseResultMap">
-    SELECT * FROM task WHERE
-    <trim prefix="" suffix="" suffixOverrides=" and ">
-      state="TO_TAKE_ORDER" and
-      <if test="type!=null">
-        `type`=#{type} and
-      </if>
-      <if test="paymentMin!=null">
-        payment &gt;= #{paymentMin} and
-      </if>
-      <if test="paymentMax!=null">
-        payment &lt; #{paymentMax}
-      </if>
-    </trim>
-    
+  <select id="selectByType" parameterType="com.net.enumeration.TaskType" resultMap="BaseResultMap">
+    SELECT * FROM task where
+    type=#{type}
+    AND state='TO_TAKE_ORDER' AND start &lt;=CURRENT_TIMESTAMP
   </select>
+
+  <select id="selectByTime" resultMap="BaseResultMap">
+    SELECT * FROM task where
+    state='TO_TAKE_ORDER' AND start &lt;=CURRENT_TIMESTAMP
+    ORDER BY id DESC
+  </select>
+
+  <select id="selectByPayment" resultMap="BaseResultMap">
+    SELECT * FROM task where
+    state='TO_TAKE_ORDER' AND start &lt;=CURRENT_TIMESTAMP
+    ORDER BY payment DESC
+  </select>
+
 
 </mapper>

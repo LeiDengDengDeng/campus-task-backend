@@ -2,6 +2,7 @@ package com.net.service;
 
 import com.net.enumeration.CoinChangeReason;
 import com.net.enumeration.TaskState;
+import com.net.enumeration.TaskType;
 import com.net.mapper.CoinRecordMapper;
 import com.net.mapper.TaskMapper;
 import com.net.vo.*;
@@ -22,7 +23,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public ResponseVO addTask(TaskVO taskVO) {
-        taskVO.setState(TaskState.UNSTART);
+        taskVO.setState(TaskState.TO_TAKE_ORDER);
         taskMapper.insertSelective(taskVO);
         return ResponseVO.buildSuccess();
     }
@@ -131,7 +132,18 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public ResponseVO getAllTask(TaskQueryVO taskQueryVO) {
-        return ResponseVO.buildSuccess(taskMapper.select(taskQueryVO));
+    public ResponseVO getTaskByTime() {
+        return ResponseVO.buildSuccess(taskMapper.selectByTime());
     }
+
+    @Override
+    public ResponseVO getTaskByType(TaskType type) {
+        return ResponseVO.buildSuccess(taskMapper.selectByType(type));
+    }
+
+    @Override
+    public ResponseVO getTaskByPayment() {
+        return ResponseVO.buildSuccess(taskMapper.selectByPayment());
+    }
+
 }

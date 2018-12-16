@@ -1,9 +1,9 @@
 package com.net.controller;
 
+import com.net.enumeration.TaskType;
 import com.net.service.TaskService;
 import com.net.vo.CommentVO;
 import com.net.vo.ResponseVO;
-import com.net.vo.TaskQueryVO;
 import com.net.vo.TaskVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -100,12 +100,30 @@ public class TaskController {
     }
 
     /**
-     * 查询待接任务
+     * 根据时间排序
      * @return
      */
-    @RequestMapping(value = "/task/query",method = RequestMethod.POST)
-    public ResponseVO getAllTask(@RequestBody TaskQueryVO taskQueryVO){
-        return taskService.getAllTask(taskQueryVO);
+    @RequestMapping(value = "/task/time",method = RequestMethod.GET)
+    public ResponseVO getTaskByTime(){
+        return taskService.getTaskByTime();
+    }
+
+    /**
+     * 根据类型筛选
+     * @return
+     */
+    @RequestMapping(value = "/task/type/{taskType}",method = RequestMethod.GET)
+    public ResponseVO getTaskByType(@PathVariable TaskType taskType){
+        return taskService.getTaskByType(taskType);
+    }
+
+    /**
+     * 根据报酬排序
+     * @return
+     */
+    @RequestMapping(value = "/task/payment",method = RequestMethod.GET)
+    public ResponseVO getTaskByPayment(){
+        return taskService.getTaskByPayment();
     }
 
 

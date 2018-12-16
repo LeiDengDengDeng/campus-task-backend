@@ -1,8 +1,8 @@
 package com.net.service;
 
+import com.net.enumeration.TaskType;
 import com.net.vo.CommentVO;
 import com.net.vo.ResponseVO;
-import com.net.vo.TaskQueryVO;
 import com.net.vo.TaskVO;
 
 /**
@@ -71,8 +71,22 @@ public interface TaskService {
     public ResponseVO getTaskByTaker(Integer takerId);
 
     /**
-     * 查询待接任务
+     * 根据时间排序
      * @return
      */
-    public ResponseVO getAllTask(TaskQueryVO taskQueryVO);
+    public ResponseVO getTaskByTime();
+
+    /**
+     * 根据类型筛选
+     * @return
+     */
+    public ResponseVO getTaskByType(TaskType taskType);
+
+    /**
+     * 根据报酬排序
+     * @return
+     */
+    public ResponseVO getTaskByPayment();
+
+
 }

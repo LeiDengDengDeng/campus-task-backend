@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.net.enumeration.TaskState;
 import com.net.enumeration.TaskType;
 import com.net.mapper.TaskMapper;
-import com.net.vo.TaskQueryVO;
 import com.net.vo.TaskVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,10 +55,7 @@ public class TaskMapperTest {
 
     @Test
     public void select(){
-        TaskQueryVO queryVO=new TaskQueryVO();
-//        queryVO.setPaymentMin(100);
-//        queryVO.setType(TaskType.OTHER);
-        System.out.println(JSONObject.toJSONString(mapper.select(queryVO)));
+
     }
 
     @Test
