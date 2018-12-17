@@ -1,11 +1,13 @@
 package com.net.service;
 
+import com.net.mapper.CoinRecordMapper;
+import com.net.mapper.TaskMapper;
 import com.net.mapper.UserMapper;
-import com.net.vo.ResponseVO;
-import com.net.vo.UserInfoVO;
-import com.net.vo.UserVO;
+import com.net.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author fjj
@@ -16,6 +18,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private CoinRecordMapper coinRecordMapper;
+
+    @Autowired
+    private TaskMapper taskMapper;
 
     @Override
     public ResponseVO addUser(UserVO userVO) {
@@ -43,6 +51,56 @@ public class UserServiceImpl implements UserService {
         try {
             UserInfoVO userInfo = userMapper.selectUserInfoById(id);
             return ResponseVO.buildSuccess(userInfo);
+        }catch (Exception e){
+            return ResponseVO.buildFailure(e.toString());
+        }
+    }
+
+    @Override
+    public ResponseVO getAllUsers() {
+        try {
+            List<UserVO> allUsers = userMapper.selectAllUsers();
+            return ResponseVO.buildSuccess(allUsers);
+        }catch (Exception e){
+            return ResponseVO.buildFailure(e.toString());
+        }
+    }
+
+    @Override
+    public ResponseVO getUsersByState(String state) {
+        try {
+            List<UserVO> users = userMapper.selectUsersByState(state);
+            return ResponseVO.buildSuccess(users);
+        }catch (Exception e){
+            return ResponseVO.buildFailure(e.toString());
+        }
+    }
+
+    @Override
+    public ResponseVO getCoinsByUserId(int id) {
+        try {
+            List<CoinRecordVO> coins = coinRecordMapper.selectCoinRecords(id);
+            return ResponseVO.buildSuccess(coins);
+        }catch (Exception e){
+            return ResponseVO.buildFailure(e.toString());
+        }
+    }
+
+    @Override
+    public ResponseVO getPublicByUserId(int id) {
+        try {
+            List<TaskVO> tasks = taskMapper.selectByPublisher(id);
+            return ResponseVO.buildSuccess(tasks);
+        }catch (Exception e){
+            return ResponseVO.buildFailure(e.toString());
+        }
+    }
+
+    @Override
+    public ResponseVO getTakeByUserId(int id) {
+        try {
+            List<TaskVO> tasks = taskMapper.selectByTaker(id);
+            return ResponseVO.buildSuccess(tasks);
         }catch (Exception e){
             return ResponseVO.buildFailure(e.toString());
         }

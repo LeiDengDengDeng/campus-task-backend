@@ -48,4 +48,11 @@
         where u.id = #{id}
     </select>
 
+    <select id="selectAllUsers" resultType="com.net.vo.UserVO">
+        select * from user;
+    </select>
+
+    <select id="selectUsersByState" resultType="com.net.vo.UserVO">
+        select * from user where state = #{state}
+    </select>
 </mapper>
