@@ -3,8 +3,8 @@
 <mapper namespace="com.net.mapper.UserMapper">
     <insert id="insertUser" parameterType="com.net.vo.UserVO"
             useGeneratedKeys="true" keyProperty="id">
-        insert into user(username,name,gender,avatar,pictureUrl,joinDate,state,identity)
-        values(#{username},#{name},#{gender},#{avatar},#{pictureUrl},#{joinDate},#{state},#{identity})
+        insert into user(username,name,gender,avatar,pictureUrl,joinDate,state,identity,nickname)
+        values(#{username},#{name},#{gender},#{avatar},#{pictureUrl},#{joinDate},#{state},#{identity},#{nickname})
      </insert>
 
     <update id="updateUserById" parameterType="com.net.vo.UserVO">
