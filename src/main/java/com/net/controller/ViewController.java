@@ -10,10 +10,18 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class ViewController {
+    @RequestMapping(value = "/login")
+    public String getLogin(HttpSession session) {
+        return "login";
+    }
+
+    @RequestMapping(value = "/signUp")
+    public String getSignUp(HttpSession session) {
+        return "sign-up";
+    }
+
     @RequestMapping(value = "/index")
     public String getIndex(HttpSession session) {
         return "complain";
     }
-
-
 }
