@@ -82,6 +82,12 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.18</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -106,6 +112,8 @@
 				<includes>
 					<include>**/*.properties</include>
 					<include>**/*.xml</include>
+					<include>static/**</include>
+					<include>templates/**</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
