@@ -5,6 +5,7 @@ import com.net.enumeration.TaskState;
 import com.net.enumeration.TaskType;
 import com.net.mapper.CoinRecordMapper;
 import com.net.mapper.TaskMapper;
+import com.net.mapper.UserMapper;
 import com.net.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class TaskServiceImpl implements TaskService{
     @Autowired
     private CoinRecordMapper coinRecordMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public ResponseVO addTask(TaskVO taskVO) {
         taskVO.setState(TaskState.TO_TAKE_ORDER);
@@ -35,7 +39,7 @@ public class TaskServiceImpl implements TaskService{
         if(taskInDb==null)
             return ResponseVO.buildFailure("任务不存在");
 
-        taskMapper.updateByPrimaryKeySelective(taskInDb);
+        taskMapper.updateByPrimaryKeySelective(taskVO);
 
         return ResponseVO.buildSuccess();
     }
@@ -48,6 +52,31 @@ public class TaskServiceImpl implements TaskService{
         if(taskInDb.getState()!=TaskState.TO_TAKE_ORDER)
             return ResponseVO.buildFailure("只有未接单的任务才能关闭");
         updateState(taskId,TaskState.CLOSED);
+        return ResponseVO.buildSuccess();
+    }
+
+    @Override
+    public ResponseVO takeTask(Integer taskId, Integer orderTaker) {
+        TaskVO taskVO=new TaskVO();
+        taskVO.setId(taskId);
+        taskVO.setOrderTaker(orderTaker);
+        taskVO.setState(TaskState.ORDER_TAKED);
+        taskMapper.updateByPrimaryKeySelective(taskVO);
+        return ResponseVO.buildSuccess();
+    }
+
+    @Override
+    public ResponseVO cancelOrder(Integer taskId) {
+        TaskVO taskInDb=taskMapper.selectByPrimaryKey(taskId);
+        System.out.println(taskId);
+        if(taskInDb==null||taskInDb.getState()!=TaskState.ORDER_TAKED)
+            return ResponseVO.buildFailure("只有已接单的订单可以取消,正确状态:"+TaskState.ORDER_TAKED);
+
+        TaskVO taskVO=new TaskVO();
+        taskVO.setId(taskId);
+        taskVO.setOrderTaker(-1);
+        taskVO.setState(TaskState.TO_TAKE_ORDER);
+        taskMapper.updateByPrimaryKeySelective(taskVO);
         return ResponseVO.buildSuccess();
     }
 
@@ -123,12 +152,18 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public ResponseVO getTaskByPublisher(Integer publisherId) {
-        return ResponseVO.buildSuccess(taskMapper.selectByPublisher(publisherId));
+        TaskShowVO taskShowVO=new TaskShowVO();
+        taskShowVO.setTasks(taskMapper.selectByPublisher(publisherId));
+        taskShowVO.setUserVO(userMapper.selectUserInfoById(publisherId));
+        return ResponseVO.buildSuccess(taskShowVO);
     }
 
     @Override
     public ResponseVO getTaskByTaker(Integer takerId) {
-        return ResponseVO.buildSuccess(taskMapper.selectByTaker(takerId));
+        TaskShowVO taskShowVO=new TaskShowVO();
+        taskShowVO.setTasks(taskMapper.selectByTaker(takerId));
+        taskShowVO.setUserVO(userMapper.selectUserInfoById(takerId));
+        return ResponseVO.buildSuccess(taskShowVO);
     }
 
     @Override
@@ -144,6 +179,11 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public ResponseVO getTaskByPayment() {
         return ResponseVO.buildSuccess(taskMapper.selectByPayment());
+    }
+
+    @Override
+    public ResponseVO getTaskById(Integer taskId) {
+        return ResponseVO.buildSuccess(taskMapper.selectByPrimaryKey(taskId));
     }
 
 }

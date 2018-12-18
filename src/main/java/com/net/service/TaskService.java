@@ -35,6 +35,21 @@ public interface TaskService {
     public ResponseVO closeTask(Integer taskId);
 
     /**
+     * 接单
+     * @param taskId
+     * @param orderTaker
+     * @return
+     */
+    public ResponseVO takeTask(Integer taskId,Integer orderTaker);
+
+    /**
+     * 取消接单
+     * @param taskId
+     * @return
+     */
+    public ResponseVO cancelOrder(Integer taskId);
+
+    /**
      * 接单人完成任务
      * @param taskId
      * @return
@@ -87,6 +102,12 @@ public interface TaskService {
      * @return
      */
     public ResponseVO getTaskByPayment();
+
+    /**
+     * 根据id查询task
+     * @return
+     */
+    public ResponseVO getTaskById(Integer taskId);
 
 
 }

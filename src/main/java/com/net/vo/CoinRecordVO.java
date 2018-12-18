@@ -1,6 +1,10 @@
 package com.net.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.net.enumeration.CoinChangeReason;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * 积分变动记录
@@ -32,6 +36,13 @@ public class CoinRecordVO {
      * 相关的任务标题
      */
     private String taskTitle="";
+
+    /**
+     * 发生的时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date addTime;
 
     public Integer getUserId() {
         return userId;
@@ -71,5 +82,13 @@ public class CoinRecordVO {
 
     public void setTaskTitle(String taskTitle) {
         this.taskTitle = taskTitle;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 }
