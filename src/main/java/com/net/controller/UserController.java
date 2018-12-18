@@ -30,6 +30,11 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    @RequestMapping(value = "/user/username/{username}",method = RequestMethod.GET)
+    public ResponseVO getUser(@PathVariable String username){
+        return userService.getUserByUsername(username);
+    }
+
     @RequestMapping(value = "/user/all",method = RequestMethod.GET)
     public ResponseVO getAllUsers(){
         return userService.getAllUsers();
@@ -64,7 +69,5 @@ public class UserController {
     public ResponseVO getTakeByUserId(@PathVariable int id){
         return userService.getTakeByUserId(id);
     }
-
-
 
 }

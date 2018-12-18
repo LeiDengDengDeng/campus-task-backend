@@ -13,6 +13,8 @@ public class UserInfoVO {
     private Integer id;
     // 用户名
     private String username;
+    // 昵称
+    private String nickname;
     // 用户真实姓名
     private String name;
     // 性别
@@ -149,5 +151,13 @@ public class UserInfoVO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

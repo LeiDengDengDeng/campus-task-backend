@@ -12,11 +12,13 @@ import java.util.Date;
  */
 public class UserVO implements Serializable {
     private Integer id;
-    // 用户名
+    // 微信ID
     private String username;
+    // 微信昵称
+    private String nickname;
     // 用户真实姓名
     private String name;
-    // 性别
+    // 性（1：男   女：0）
     private Integer gender;
     // 微信头像地址
     private String avatar;
@@ -27,9 +29,9 @@ public class UserVO implements Serializable {
     // 电话
     private String phone;
     // 用户账号状态
-    private UserState state;
+    private UserState state = UserState.UNCHECKED;
     // 用户身份
-    private UserIdentity identity;
+    private UserIdentity identity = UserIdentity.USER;
 
     public Integer getId() {
         return id;
@@ -109,5 +111,13 @@ public class UserVO implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

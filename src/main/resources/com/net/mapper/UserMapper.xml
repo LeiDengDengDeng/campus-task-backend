@@ -55,4 +55,8 @@
     <select id="selectUsersByState" resultType="com.net.vo.UserVO">
         select * from user where state = #{state}
     </select>
+
+    <select id="selectUserByUsername" resultType="com.net.vo.UserVO">
+        select * from user where username = #{username}
+    </select>
 </mapper>

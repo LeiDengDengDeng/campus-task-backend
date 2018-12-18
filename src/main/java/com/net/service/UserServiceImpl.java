@@ -7,6 +7,7 @@ import com.net.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,8 +29,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseVO addUser(UserVO userVO) {
         try {
+            userVO.setJoinDate(new Date());
             userMapper.insertUser(userVO);
-            return ResponseVO.buildSuccess();
+            return ResponseVO.buildSuccess(userVO);
         }catch (Exception e){
             return ResponseVO.buildFailure(e.toString());
         }
@@ -101,6 +103,16 @@ public class UserServiceImpl implements UserService {
         try {
             List<TaskVO> tasks = taskMapper.selectByTaker(id);
             return ResponseVO.buildSuccess(tasks);
+        }catch (Exception e){
+            return ResponseVO.buildFailure(e.toString());
+        }
+    }
+
+    @Override
+    public ResponseVO getUserByUsername(String username) {
+        try {
+            UserVO user = userMapper.selectUserByUsername(username);
+            return ResponseVO.buildSuccess(user);
         }catch (Exception e){
             return ResponseVO.buildFailure(e.toString());
         }

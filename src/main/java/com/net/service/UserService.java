@@ -63,4 +63,11 @@ public interface UserService {
      * @return
      */
     ResponseVO getTakeByUserId(int id);
+
+    /**
+     * 微信id查找用户
+     * @param username
+     * @return
+     */
+    ResponseVO getUserByUsername(String username);
 }
