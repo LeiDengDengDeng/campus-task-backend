@@ -10,9 +10,10 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class ViewController {
-    @RequestMapping(value = "/view/complain")
+    @RequestMapping(value = "/index")
     public String getIndex(HttpSession session) {
-        return "test";
+        return "complain";
     }
+
 
 }
