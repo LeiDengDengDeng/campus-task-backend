@@ -9,6 +9,7 @@ import com.net.mapper.UserMapper;
 import com.net.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by cong on 2018-12-05.
@@ -26,9 +27,24 @@ public class TaskServiceImpl implements TaskService{
     private UserMapper userMapper;
 
     @Override
+    @Transactional
     public ResponseVO addTask(TaskVO taskVO) {
         taskVO.setState(TaskState.TO_TAKE_ORDER);
+        Integer sum=coinRecordMapper.selectCoin(taskVO.getPublisher());
+        if(sum==null)
+            sum=0;
+        if(sum<taskVO.getPayment())
+            return ResponseVO.buildFailure("积分不足,现有积分:"+sum);
+
         taskMapper.insertSelective(taskVO);
+
+        CoinRecordVO payRecord=new CoinRecordVO();
+        payRecord.setReason(CoinChangeReason.PAY_ORDER);
+        payRecord.setCount(-taskVO.getPayment());
+        payRecord.setUserId(taskVO.getPublisher());
+        payRecord.setTaskId(taskVO.getId());
+        payRecord.setTaskTitle(taskVO.getTitle());
+        coinRecordMapper.insertCoinRecord(payRecord);
         return ResponseVO.buildSuccess();
     }
 
@@ -52,6 +68,13 @@ public class TaskServiceImpl implements TaskService{
         if(taskInDb.getState()!=TaskState.TO_TAKE_ORDER)
             return ResponseVO.buildFailure("只有未接单的任务才能关闭");
         updateState(taskId,TaskState.CLOSED);
+        CoinRecordVO payRecord=new CoinRecordVO();
+        payRecord.setReason(CoinChangeReason.CANCEL_ORDER);
+        payRecord.setCount(taskInDb.getPayment());
+        payRecord.setUserId(taskInDb.getPublisher());
+        payRecord.setTaskId(taskInDb.getId());
+        payRecord.setTaskTitle(taskInDb.getTitle());
+        coinRecordMapper.insertCoinRecord(payRecord);
         return ResponseVO.buildSuccess();
     }
 
@@ -104,14 +127,6 @@ public class TaskServiceImpl implements TaskService{
     }
 
     private void addCoinRecord(TaskVO taskInDb) {
-        CoinRecordVO payRecord=new CoinRecordVO();
-        payRecord.setReason(CoinChangeReason.PAY_ORDER);
-        payRecord.setCount(taskInDb.getPayment());
-        payRecord.setUserId(taskInDb.getPublisher());
-        payRecord.setTaskId(taskInDb.getId());
-        payRecord.setTaskTitle(taskInDb.getTitle());
-        coinRecordMapper.insertCoinRecord(payRecord);
-
         CoinRecordVO rewardRecord=new CoinRecordVO();
         rewardRecord.setTaskTitle(taskInDb.getTitle());
         rewardRecord.setTaskId(taskInDb.getId());

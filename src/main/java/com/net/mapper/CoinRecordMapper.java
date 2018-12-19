@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface CoinRecordMapper {
 
-    public int selectCoin(Integer userId);
+    public Integer selectCoin(Integer userId);
 
     public List<CoinRecordVO> selectCoinRecords(Integer userId);
 

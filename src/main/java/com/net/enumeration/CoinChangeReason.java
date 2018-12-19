@@ -13,6 +13,10 @@ public enum CoinChangeReason {
      */
     FINISH_ORDER,
     /**
+     * 取消订单
+     */
+    CANCEL_ORDER,
+    /**
      * 充值
      */
     CHARGE
