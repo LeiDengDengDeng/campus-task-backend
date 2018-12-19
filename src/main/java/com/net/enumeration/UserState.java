@@ -14,6 +14,10 @@ public enum UserState {
      */
     CHECKING,
     /**
+     * 不通过
+     */
+    UNAPPROVED,
+    /**
      * 已审核
      */
     CHECKED,
