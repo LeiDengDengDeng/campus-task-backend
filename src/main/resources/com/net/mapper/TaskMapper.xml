@@ -15,10 +15,11 @@
     <result column="state" jdbcType="VARCHAR" property="state" />
     <result column="comment_star" jdbcType="INTEGER" property="commentStar" />
     <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="publisher_icon_url" property="publisherIconUrl" />
   </resultMap>
   <sql id="Base_Column_List">
     id, title, content, picture_url, type, payment, start, end, publisher, order_taker, 
-    state, comment_star, comment_content
+    state, comment_star, comment_content,publisher_icon_url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -66,6 +67,9 @@
       <if test="commentContent != null">
         comment_content,
       </if>
+      <if test="publisherIconUrl != null">
+        publisher_icon_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="title != null">
@@ -103,6 +107,9 @@
       </if>
       <if test="commentContent != null">
         #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherIconUrl != null">
+        #{publisherIconUrl},
       </if>
     </trim>
   </insert>
@@ -144,6 +151,9 @@
       </if>
       <if test="commentContent != null">
         comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherIconUrl != null">
+        publisher_icon_url=#{publisherIconUrl},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

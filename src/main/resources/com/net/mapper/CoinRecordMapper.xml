@@ -5,6 +5,7 @@
         <result column="task_id"  property="taskId" />
         <result column="task_title"  property="taskTitle" />
         <result column="user_id" property="userId"/>
+        <result column="add_time" property="addTime"/>
     </resultMap>
 
     <select id="selectCoin" parameterType="int" resultType="int">
@@ -12,7 +13,7 @@
     </select>
 
     <select id="selectCoinRecords" parameterType="int" resultMap="BaseResultMap">
-      SELECT user_id,`count`,reason,task_id,task_title FROM coin_record
+      SELECT user_id,`count`,reason,task_id,task_title,add_time FROM coin_record
       WHERE user_id=#{userId}
     </select>
 

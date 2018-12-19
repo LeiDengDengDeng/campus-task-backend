@@ -35,21 +35,20 @@ public class TaskMapperTest {
         taskVO.setTitle("xxxxxxx");
         taskVO.setState(TaskState.TO_TAKE_ORDER);
         taskVO.setType(TaskType.OTHER);
+        taskVO.setPublisherIconUrl("http");
         mapper.insertSelective(taskVO);
     }
 
     @Test
     public void selectById(){
-        System.out.println(JSONObject.toJSONString(mapper.selectByPrimaryKey(1)));
+        System.out.println(JSONObject.toJSONString(mapper.selectByPrimaryKey(27)));
     }
 
     @Test
     public void updateById(){
         TaskVO taskVO=new TaskVO();
-        taskVO.setId(1);
-        taskVO.setTitle("bbbbbbbbbbbbbb");
-        taskVO.setPictureUrl("hhhhhhhh");
-        taskVO.setCommentStar(2);
+        taskVO.setId(40);
+        taskVO.setOrderTaker(1);
         mapper.updateByPrimaryKeySelective(taskVO);
     }
 

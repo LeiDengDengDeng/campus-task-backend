@@ -1,7 +1,9 @@
 package com.net.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.net.enumeration.TaskState;
 import com.net.enumeration.TaskType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,11 +21,20 @@ public class TaskVO implements Serializable {
 
     private Integer payment;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date start;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date end;
 
     private Integer publisher;
+
+    /**
+     * 头像url
+     */
+    private String publisherIconUrl;
 
     private Integer orderTaker;
 
@@ -41,6 +52,14 @@ public class TaskVO implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPublisherIconUrl() {
+        return publisherIconUrl;
+    }
+
+    public void setPublisherIconUrl(String publisherIconUrl) {
+        this.publisherIconUrl = publisherIconUrl;
     }
 
     public String getTitle() {

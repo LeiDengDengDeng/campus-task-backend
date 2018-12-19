@@ -38,6 +38,8 @@ public class TaskController {
         return taskService.updateTask(taskVO);
     }
 
+
+
     /**
      * 关闭任务
      * 在接单开始之前
@@ -124,6 +126,38 @@ public class TaskController {
     @RequestMapping(value = "/task/payment",method = RequestMethod.GET)
     public ResponseVO getTaskByPayment(){
         return taskService.getTaskByPayment();
+    }
+
+    /**
+     * 根据id查询任务
+     * @param taskId
+     * @return
+     */
+    @RequestMapping(value = "/task/id/{taskId}",method = RequestMethod.GET)
+    public ResponseVO getTaskById(@PathVariable Integer taskId){
+        return taskService.getTaskById(taskId);
+    }
+
+
+    /**
+     * 接单
+     * @param taskId
+     * @param orderTaker
+     * @return
+     */
+    @RequestMapping(value = "/task/take/{taskId}/{orderTaker}",method = RequestMethod.GET)
+    public ResponseVO takeTask(@PathVariable Integer taskId,@PathVariable Integer orderTaker){
+        return taskService.takeTask(taskId,orderTaker);
+    }
+
+    /**
+     * 取消已接任务
+     * @param taskId
+     * @return
+     */
+    @RequestMapping(value = "/task/cancel/{taskId}",method = RequestMethod.POST)
+    public ResponseVO cancelOrder(@PathVariable Integer taskId){
+        return taskService.cancelOrder(taskId);
     }
 
 
