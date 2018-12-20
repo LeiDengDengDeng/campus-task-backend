@@ -253,14 +253,14 @@
                 </li>
 
                 <li>
-                    <a href="user.html"><i class="fa fa-qrcode"></i> 帐号管理</a>
+                    <a href="/users"><i class="fa fa-qrcode"></i> 帐号管理</a>
                 </li>
 
                 <li>
-                    <a href="table.html"><i class="fa fa-table"></i>审批</a>
+                    <a href="/approve"><i class="fa fa-table"></i>审批</a>
                 </li>
                 <li>
-                    <a href="complain.html" class="active-menu"><i class="fa fa-edit"></i> 投诉处理 </a>
+                    <a href="/complain" class="active-menu"><i class="fa fa-edit"></i> 投诉处理 </a>
                 </li>
 
 
@@ -338,6 +338,7 @@
                 laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
                 voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                 cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -363,7 +364,7 @@
     var userInfo;
     $(document).ready(function () {
         $.ajax({
-            url: 'http://localhost:8081/complain/all',
+            url: '/complain/all',
             type: 'get',
             dataType: 'json',
             success: function (data) {
@@ -394,7 +395,7 @@
     }
 </script>
 <!-- Custom Js -->
-<script src="assets/js/custom-scripts.js"></script>
+<!--<script src="assets/js/custom-scripts.js"></script>-->
 
 </body>
 </html>

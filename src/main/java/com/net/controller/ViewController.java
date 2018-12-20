@@ -20,8 +20,21 @@ public class ViewController {
         return "sign-up";
     }
 
-    @RequestMapping(value = "/index")
-    public String getIndex(HttpSession session) {
+    @RequestMapping(value = "/complain")
+    public String getComplain(HttpSession session) {
         return "complain";
     }
+    @RequestMapping(value = "/users")
+    public String getUsers(HttpSession session) {
+        return "user";
+    }
+    @RequestMapping(value = "/approve")
+    public String getApprove(HttpSession session) {
+        return "table";
+    }
+    @RequestMapping(value = "/index")
+    public String getindex(HttpSession session) {
+        return "index";
+    }
+
 }
