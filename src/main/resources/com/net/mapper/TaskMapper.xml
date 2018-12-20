@@ -28,7 +28,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.net.vo.TaskVO">
+  <insert id="insertSelective" parameterType="com.net.vo.TaskVO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="title != null">
