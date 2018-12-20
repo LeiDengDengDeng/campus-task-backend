@@ -3,8 +3,8 @@
 <mapper namespace="com.net.mapper.UserMapper">
     <insert id="insertUser" parameterType="com.net.vo.UserVO"
             useGeneratedKeys="true" keyProperty="id">
-        insert into user(username,name,gender,avatar,pictureUrl,joinDate,state,identity,nickname)
-        values(#{username},#{name},#{gender},#{avatar},#{pictureUrl},#{joinDate},#{state},#{identity},#{nickname})
+        insert into user(username,name,gender,avatar,pictureUrl,joinDate,state,identity,nickname,phone)
+        values(#{username},#{name},#{gender},#{avatar},#{pictureUrl},#{joinDate},#{state},#{identity},#{nickname},#{phone})
      </insert>
 
     <update id="updateUserById" parameterType="com.net.vo.UserVO">
@@ -21,6 +21,9 @@
             </if>
             <if test="avatar != null">
                 avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
             </if>
             <if test="pictureUrl != null">
                 pictureUrl = #{pictureUrl,jdbcType=VARCHAR},
