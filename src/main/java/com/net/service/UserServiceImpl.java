@@ -1,4 +1,5 @@
 package com.net.service;
+import com.net.enumeration.CoinChangeReason;
 
 import com.net.mapper.CoinRecordMapper;
 import com.net.mapper.TaskMapper;
@@ -31,6 +32,17 @@ public class UserServiceImpl implements UserService {
         try {
             userVO.setJoinDate(new Date());
             userMapper.insertUser(userVO);
+
+            //加积分
+            CoinRecordVO coinRecordVO = new CoinRecordVO();
+            coinRecordVO.setUserId(userVO.getId());
+            coinRecordVO.setCount(10);
+            coinRecordVO.setReason(CoinChangeReason.CHARGE);
+            coinRecordVO.setTaskId(0);
+            coinRecordVO.setTaskTitle("系统赠送");
+            coinRecordVO.setAddTime(new Date());
+            coinRecordMapper.insertCoinRecord(coinRecordVO);
+
             return ResponseVO.buildSuccess(userVO);
         }catch (Exception e){
             return ResponseVO.buildFailure(e.toString());
