@@ -25,4 +25,6 @@ public interface UserMapper {
     List<UserVO> selectUsersByState(String state);
 
     UserVO selectUserByUsername(String username);
+
+    UserVO selectUserByAvatar(String avatar);
 }

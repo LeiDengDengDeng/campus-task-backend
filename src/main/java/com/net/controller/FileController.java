@@ -31,19 +31,16 @@ public class FileController {
     @Value("${web.upload.path}")
     private String uploadPath;
     @RequestMapping(value="/uploadfile",method= RequestMethod.POST)
-    public ResponseVO upLoadFile(@RequestParam MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
+    public ResponseVO upLoadFile(@RequestParam MultipartFile myfiles, HttpServletRequest request) throws IOException {
         String realFileName = "";
-
-        for(MultipartFile myfile : myfiles) {
-            if(myfile.isEmpty()) {
-                return ResponseVO.buildFailure("图片未上传");
-            }
-            else {
-                String realPath = uploadPath;
-                realFileName =new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+"fjj0918"+myfile.getOriginalFilename();
-                String realFileAddress = realPath+realFileName;
-                FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(realFileAddress));
-            }
+        if(myfiles.isEmpty()) {
+            return ResponseVO.buildFailure("图片未上传");
+        }
+        else {
+            String realPath = uploadPath;
+            realFileName =new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+"fjj0918"+myfiles.getOriginalFilename();
+            String realFileAddress = realPath+realFileName;
+            FileUtils.copyInputStreamToFile(myfiles.getInputStream(), new File(realFileAddress));
         }
         return ResponseVO.buildSuccess("/uploads/" + realFileName);
     }

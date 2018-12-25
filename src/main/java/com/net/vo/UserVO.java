@@ -29,9 +29,9 @@ public class UserVO implements Serializable {
     // 电话
     private String phone;
     // 用户账号状态
-    private UserState state = UserState.UNCHECKED;
+    private UserState state;
     // 用户身份
-    private UserIdentity identity = UserIdentity.USER;
+    private UserIdentity identity;
 
     public Integer getId() {
         return id;
