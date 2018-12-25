@@ -62,4 +62,10 @@
     <select id="selectUserByUsername" resultType="com.net.vo.UserVO">
         select * from user where username = #{username}
     </select>
+
+    <select id="selectUserByAvatar" resultType="com.net.vo.UserVO">
+        select * from user where avatar = #{avatar}
+    </select>
+
+
 </mapper>
