@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>cssmoban</title>
+    <title>校园互助管理系统 - 主页</title>
     <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet"/>
     <!-- FontAwesome Styles-->
@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/index"><strong>Marvel</strong></a>
+            <a class="navbar-brand" href="/index"><strong>Campus</strong></a>
 
             <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
         </div>
@@ -252,7 +252,7 @@
             <ul class="nav" id="main-menu">
 
                 <li>
-                    <a href="/index" class="active-menu"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    <a href="/index" class="active-menu"><i class="fa fa-dashboard"></i> 主页</a>
                 </li>
                 <li>
                     <a href="/users"><i class="fa fa-qrcode"></i> 帐号管理</a>
@@ -276,13 +276,13 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                Dashboard
-                <small>Welcome John Doe</small>
+                主面板
+                <small>dashboard</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Dashboard</a></li>
-                <li class="active">Data</li>
+                <li><a href="#">主页</a></li>
+                <li><a href="#">主页</a></li>
+                <li class="active">主面板</li>
             </ol>
 
         </div>
@@ -296,7 +296,7 @@
                         <div class="panel-body easypiechart-panel">
                             <h4>审核通过人数</h4>
                             <div class="easypiechart" id="easypiechart-blue" data-percent="82"><span
-                                    class="percent">82%</span>
+                                    class="percent"></span>
                             </div>
                         </div>
                     </div>
@@ -304,7 +304,7 @@
                 <div class="col-xs-6 col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-body easypiechart-panel">
-                            <h4>Sales</h4>
+                            <h4>封号人数</h4>
                             <div class="easypiechart" id="easypiechart-orange" data-percent="55"><span class="percent">55%</span>
                             </div>
                         </div>
@@ -313,7 +313,7 @@
                 <div class="col-xs-6 col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-body easypiechart-panel">
-                            <h4>Customers</h4>
+                            <h4>审核中人数</h4>
                             <div class="easypiechart" id="easypiechart-teal" data-percent="84"><span
                                     class="percent">84%</span>
                             </div>
@@ -323,7 +323,7 @@
                 <div class="col-xs-6 col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-body easypiechart-panel">
-                            <h4>No. of Visits</h4>
+                            <h4>未审核人数</h4>
                             <div class="easypiechart" id="easypiechart-red" data-percent="46"><span
                                     class="percent">46%</span>
                             </div>
@@ -593,6 +593,50 @@
 <script src="assets/js/custom-scripts.js"></script>
 
 <script>
+    var UNCHECKED=0;
+    var CHECKING=0;
+    var CHECKED=0;
+    var UNAPPROVED=0;
+    var CLOSED=0;
+    var sum=0;
+    $(document).ready(function () {
+        $.ajax({
+            url: '/user/all',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                //方法中传入的参数data为后台获取的数据
+                for (i in data.content) //data.data指的是数组，数组里是8个对象，i为数组的索引
+                {
+                    if (data.content[i].state=="UNCHECKED"){
+                        UNCHECKED++;
+                    }else if(data.content[i].state=="CHECKED")
+                    {
+                        CHECKED++;
+                    }else if(data.content[i].state=="CHECKING"){
+                        CHECKING++;
+                    }else if(data.content[i].state=="CLOSED") {
+                        CLOSED++;
+                    }
+                    sum++;
+                }
+//
+                $('#easypiechart-blue .percent').text(Math.round(CHECKED*100/sum)+"%");
+                $('#easypiechart-orange .percent').text(Math.round(CLOSED*100/sum)+"%");
+                $('#easypiechart-teal .percent').text(Math.round(CHECKING*100/sum)+"%");
+                $('#easypiechart-red .percent').text(Math.round(UNCHECKED*100/sum)+"%");
+                $('#easypiechart-blue').data('easyPieChart').update(CHECKED*100/sum);
+                $('#easypiechart-orange').data('easyPieChart').update(CLOSED*100/sum);
+                $('#easypiechart-teal').data('easyPieChart').update(CHECKING*100/sum);
+                $('#easypiechart-red').data('easyPieChart').update(UNCHECKED*100/sum);
+
+
+
+
+            }
+        });
+
+    });
 
 </script>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>cssmoban</title>
+    <title>校园互助管理系统 - 投诉处理</title>
     <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet"/>
     <!-- FontAwesome Styles-->
@@ -16,6 +16,13 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
     <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet"/>
+    <style type="text/css">
+        .rightSpace {
+            margin-right: 10px;
+            text-align: right;
+        }
+    </style>
+
 </head>
 <body>
 <div id="wrapper">
@@ -27,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><strong>Marvel</strong></a>
+            <a class="navbar-brand" href="index.html"><strong>Campus</strong></a>
         </div>
 
         <ul class="nav navbar-top-links navbar-right">
@@ -249,7 +256,7 @@
             <ul class="nav" id="main-menu">
 
                 <li>
-                    <a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    <a href="index.html"><i class="fa fa-dashboard"></i> 主页</a>
                 </li>
 
                 <li>
@@ -330,19 +337,45 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
+                <h4 class="modal-title" id="myModalLabel">个人信息</h4>
             </div>
-            <div class="modal-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+            <div class="modal-body" id="info-model" align="center">
+                <div id="user-id-div">
+                    <label class="rightSpace">用户ID</label>
+                    <span id="user-id"></span><br>
+                </div>
+                <div id="user-name-div">
+                    <label class="rightSpace">用户名</label>
+                    <span id="user-name"></span><br>
+                </div>
+                <div id="wx-name-div">
+                    <label class="rightSpace">微信名</label>
+                    <span id="wx-name"></span> <br>
+                </div>
+                <div id="real-name-div">
+                    <label class="rightSpace">真实姓名</label>
+                    <span id="real-name"></span> <br>
+                </div>
+                <div id="gender-div">
+                    <label class="rightSpace">性别</label>
+                    <span id="gender"></span> <br>
+                </div>
+                <div id="join-time-div">
+                    <label class="rightSpace">加入时间</label>
+                    <span id="join-time"></span> <br>
+                </div>
+                <div id="phone-div">
+                    <label class="rightSpace">手机号</label>
+                    <span id="phone"></span> <br>
+                </div>
+                <div id="state-div">
+                    <label class="rightSpace">账户状态</label>
+                    <span id="state"></span> <br>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-danger" id="close-button">停用</button>
             </div>
         </div>
     </div>
@@ -361,7 +394,13 @@
 <script src="assets/js/dataTables/jquery.dataTables.js"></script>
 <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
 <script>
-    var userInfo;
+    const stateMap = new Map([
+        ["UNCHECKED", "未审核"],
+        ["CHECKING", "审核中"],
+        ["CHECKED", "已通过审核"],
+        ["UNAPPROVED", "未通过"],
+        ["CLOSED", "封号"]
+    ]);
     $(document).ready(function () {
         $.ajax({
             url: '/complain/all',
@@ -372,7 +411,7 @@
                 for (i in data.content) //data.data指的是数组，数组里是8个对象，i为数组的索引
                 {
                     var tr;
-                    tr = '<td>' + data.content[i].id + '</td>' + '<td>' + data.content[i].taskId + '</td>' + '<td>' + data.content[i].publisher + '</td>' + '<td>' + '<a data-toggle="modal" data-target="#myModal" onclick="getInfo()">' + data.content[i].orderTaker + '</a>' + '</td>' + '<td>' + data.content[i].content + '</td>'
+                    tr = '<td>' + data.content[i].id + '</td>' + '<td>' + data.content[i].taskId + '</td>' + '<td>' + data.content[i].publisher + '</td>' + '<td>' + '<a data-toggle="modal" data-target="#myModal" onclick="getInfo(' + data.content[i].orderTaker + ')">' + data.content[i].orderTaker + '</a>' + '</td>' + '<td>' + data.content[i].content + '</td>'
                     $("#complain-body").append('<tr class="odd gradeA">' + tr + '</tr>')
                 }
                 $('#complain-table').dataTable();
@@ -385,11 +424,38 @@
             type: 'get',
             dataType: 'json',
             success: function (data) {
+                var newDate = new Date();
+                newDate.setTime(data.content.joinDate);
                 //方法中传入的参数data为后台获取的数据
-                var tr;
-                tr = '<td>' + data.content.id + '</td>' + '<td>' + data.content[i].taskId + '</td>' + '<td>' + data.content[i].publisher + '</td>' + '<td>' + '<a data-toggle="modal" data-target="#myModal" onclick="getInfo()">' + data.content[i].orderTaker + '</a>' + '</td>' + '<td>' + data.content[i].content + '</td>'
-                $("#complain-body").append('<tr class="odd gradeA">' + tr + '</tr>')
-                $('#complain-table').dataTable();
+                $("#user-id").text(data.content.id);
+                $("#user-name").text(data.content.username);
+                $("#wx-name").text(data.content.nickname);
+                $("#real-name").text(data.content.name);
+                $("#gender").text(data.content.gender ? '男' : '女');
+                $("#join-time").text(newDate.toLocaleDateString());
+                $("#phone").text(data.content.phone);
+                $("#state").text(stateMap.get(data.content.state));
+                $("#close-button").on("click",function(){update('CLOSED',data.content);});
+
+            }
+        });
+    }
+    function update(state, user) {
+        user.state = state;
+        $.ajax({
+            url: '/user/update',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(user),
+            success: function () {
+                location.reload()
+            },
+            error: function (xhr, status, p3, p4) {
+                var err = "Error " + " " + status + " " + p3;
+                if (xhr.responseText && xhr.responseText[0] == "{")
+                    err = JSON.parse(xhr.responseText).message;
+                alert(err);
             }
         });
     }

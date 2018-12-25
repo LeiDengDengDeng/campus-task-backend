@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>cssmoban</title>
+    <title>校园互助管理系统 - 审批管理</title>
     <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet"/>
     <!-- FontAwesome Styles-->
@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/index"><strong>Marvel</strong></a>
+            <a class="navbar-brand" href="/index"><strong>Campus</strong></a>
             <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
         </div>
         <ul class="nav navbar-top-links navbar-right">
@@ -248,7 +248,7 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="main-menu">
                 <li>
-                    <a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    <a href="index.html"><i class="fa fa-dashboard"></i> 主页</a>
                 </li>
 
                 <li>
@@ -360,6 +360,7 @@
 <script>
     var users;
     var index;
+
     function getInfo(i) {
         index=i
         $("#pic").attr('src',users[i].pictureUrl);

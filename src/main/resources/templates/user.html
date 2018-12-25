@@ -3,7 +3,7 @@
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cssmoban</title>
+    <title>校园互助管理系统 - 用户管理</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/users"><strong>Marvel</strong></a>
+                <a class="navbar-brand" href="/users"><strong>Campus</strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -245,7 +245,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a href="index.html"><i class="fa fa-dashboard"></i> 主页</a>
                     </li>
 
                     <li>
@@ -334,7 +334,6 @@
 
     <script>
         var users;
-        var index;
         const stateMap = new Map([
             ["UNCHECKED", "未审核"],
             ["CHECKING", "审核中"],
@@ -342,11 +341,7 @@
             ["UNAPPROVED", "未通过"],
             ["CLOSED", "封号"]
         ]);
-        function getInfo(i) {
-            index=i
-            $("#pic").attr('src',users[i].pictureUrl);
 
-        }
         $(document).ready(function () {
             $.ajax({
                 url: '/user/all',
@@ -368,18 +363,19 @@
                         '<td>' + '<div class="btn-group">' + ' <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle" aria-expanded="true">' +
                             '操作 <span class="caret"></span></button>' +
                             '<ul class="dropdown-menu">' +
-                            ' <li><a href="#">停用</a></li>' +
-                            (data.content[i].state=="UNCHECKED"||data.content[i].state=="CHECKING"?'':' <li><a href="#">重新审核</a></li>' )+
-                            (data.content[i].state=="CHECKED"?'':' <li><a href="#">审核通过</a></li>' )+
-                            (data.content[i].state=="UNAPPROVED"?'':' <li><a href="#">审核不通过</a></li> </ul> </div>' + '</td>');
+                            ' <li><a href="javascript:void(0);" onclick="update('+'\'CLOSED\''+','+i+')">停用</a></li>' +
+                            (data.content[i].state=="UNCHECKED"||data.content[i].state=="CHECKING"?'':' <li><a href="javascript:void(0);" onclick="update('+'\'CHECKING\''+','+i+')">重新审核</a></li>' )+
+                            (data.content[i].state=="CHECKED"?'':' <li><a href="javascript:void(0);" onclick="update('+'\'CHECKED\''+','+i+')">审核通过</a></li>' )+
+                            (data.content[i].state=="UNAPPROVED"?'':' <li><a href="javascript:void(0);" onclick="update('+'\'UNAPPROVED\''+','+i+')">审核不通过</a></li> </ul> </div>' + '</td>');
                         $("#user-body").append('<tr class="odd gradeA">' + tr + '</tr>')
                     }
+                    users=data.content;
                     $('#user-table').dataTable();
                 }
             });
 
         });
-        function update(state) {
+        function update(state,index) {
             users[index].state=state
             $.ajax({
                 url: '/user/update',
